@@ -19,6 +19,6 @@ public class SystemApplication {
         SpringApplication application = new SpringApplication(SystemApplication.class);
         Environment environment = application.run(args).getEnvironment();
         LOG.info("启动成功！！");
-        LOG.info("Eureka地址:\thttp://127.0.0.1:{}",environment.getProperty("server.port"));
+        LOG.info("System地址:\thttp://127.0.0.1:{}",environment.getProperty("server.port"));
     }
 }
