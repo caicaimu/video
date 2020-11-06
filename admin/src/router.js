@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from './views/Login.vue'
 import Admin from './views/Admin.vue'
 import Welcome  from './views/admin/Welcome.vue'
+import Chapter  from './views/admin/chapter.vue'
 
 Vue.use(Router);
 
@@ -21,6 +22,9 @@ export default new Router({
         children:[{
             path: 'welcome',
             component: Welcome,
+        },{
+            path: 'chapter',
+            component: Chapter,
         }]
     }]
 })
