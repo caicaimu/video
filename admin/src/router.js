@@ -1,29 +1,32 @@
-import Vue from 'vue';
-import Router from 'vue-router'
-import Login from './views/Login.vue'
-import Admin from './views/Admin.vue'
-import Welcome  from './views/admin/Welcome.vue'
-import Chapter  from './views/admin/chapter.vue'
+import Vue from "vue";
+import Router from "vue-router"
+import Login from "./views/Login.vue"
+import Admin from "./views/Admin.vue"
+import Welcome  from "./views/admin/Welcome.vue"
+import Chapter  from "./views/admin/chapter.vue"
 
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
+    mode: "history",
     base: process.env.BASE_IRL,
     routes: [{
-        path: '*',
+        path: "*",
         redirect: "/login",
     }, {
-        path: '/login',
+        path: "",
         component: Login
     },{
-        path: '/admin',
+        path: "/",
+        name:"admin",
         component: Admin,
         children:[{
-            path: 'welcome',
+            path: "welcome",
+            name:"welcome",
             component: Welcome,
         },{
-            path: 'business/chapter',
+            path: "business/chapter",
+            name:"business/chapter",
             component: Chapter,
         }]
     }]

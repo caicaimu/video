@@ -10,14 +10,14 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/chapter")
 public class ChapterController {
 
 	@Resource
 	private ChapterService chapterService;
 
-	@RequestMapping("/chapter")
-	public List<ChapterDto> Chapter() {
+	@RequestMapping("/list")
+	public List<ChapterDto> list() {
 		System.out.println("heel");
 		return chapterService.list();
 	}

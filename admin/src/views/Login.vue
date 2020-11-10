@@ -83,7 +83,7 @@
         },
         methods: {
             Login() {
-                this.$router.push("/admin")
+                this.$router.push("/welcome")
             }
         }
     }
