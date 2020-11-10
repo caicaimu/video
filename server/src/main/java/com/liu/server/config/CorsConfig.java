@@ -1,3 +1,4 @@
+/*
 package com.liu.server.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -18,3 +19,4 @@ public class CorsConfig implements WebMvcConfigurer {
                 .maxAge(3600); // 1小时内不需要再预检（发OPTIONS请求）
     }
 }
+*/
