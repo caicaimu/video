@@ -1,5 +1,6 @@
 package com.liu.server.service;
 
+import com.github.pagehelper.PageHelper;
 import com.liu.server.dto.ChapterDto;
 import com.liu.server.mapper.ChapterMapper;
 import com.liu.server.pojo.Chapter;
@@ -17,6 +18,7 @@ public class ChapterService {
     private ChapterMapper chapterMapper;
 
     public List<ChapterDto> list(){
+        PageHelper.startPage(1,1);
         List<Chapter> chapters = chapterMapper.selectByExample(null);
         ArrayList<ChapterDto> chapterDtoList = new ArrayList<>();
         for (int i = 0; i < chapters.size(); i++) {
