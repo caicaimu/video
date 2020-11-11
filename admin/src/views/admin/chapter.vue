@@ -7,15 +7,13 @@
                 <th>课程ID</th>
                 <th>操作</th>
             </tr>
-
             </thead>
 
             <tbody>
-            <tr v-for="chapter in chapters">
-                <td>{{chapter.id}}</td>
-                <td>{{chapter.name}}</td>
-                <td>{{chapter.courseId}}</td>
-
+            <tr v-for="cha in chapters">
+                <td>{{cha.id}}</td>
+                <td>{{cha.name}}</td>
+                <td>{{cha.courseId}}</td>
                 <td>
                     <div class="hidden-sm hidden-xs btn-group">
                         <button class="btn btn-xs btn-success">
@@ -90,9 +88,12 @@
         methods:{
             list(){
                 let _this =this;
-                _this.$ajax.get("http://127.0.0.1:9000/business/admin/chapter/list").then((response)=>{
+                _this.$ajax.post(
+                    "http://127.0.0.1:9000/business/admin/chapter/list",
+                    {page:1,size:1}
+                ).then((response)=>{
                     console.log("查询大章的结果",response)
-                    _this.chapters=response.data;
+                    _this.chapters=response.data.list;
                 })
             }
         }

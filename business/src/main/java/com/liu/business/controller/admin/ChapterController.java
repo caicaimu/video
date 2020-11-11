@@ -1,7 +1,9 @@
 package com.liu.business.controller.admin;
 
 import com.liu.server.dto.ChapterDto;
+import com.liu.server.dto.PageDto;
 import com.liu.server.service.ChapterService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +19,8 @@ public class ChapterController {
 	private ChapterService chapterService;
 
 	@RequestMapping("/list")
-	public List<ChapterDto> list() {
-		System.out.println("heel");
-		return chapterService.list();
+	public PageDto list(@RequestBody PageDto pageDto) {
+		chapterService.list(pageDto);
+		return pageDto;
 	}
 }
