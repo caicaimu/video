@@ -7,6 +7,9 @@
                 刷新
             </button>
         </p>
+
+        <pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8"></pagination>
+
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
@@ -83,7 +86,9 @@
 </template>
 
 <script>
+    import Pagination from "../../components/pagination";
     export default {
+        components: {Pagination},
         name: "chapter",
         data:function(){
             return{
@@ -92,18 +97,24 @@
         },
         mounted:function () {
             let _this=this;
+            _this.$refs.pagination.size=5;
             _this.list();
             //this.$parent.activeSidebar("business-chapter-sidebar");
         },
         methods:{
-            list(){
+            list(page){
+
                 let _this =this;
+
                 _this.$ajax.post(
                     "http://127.0.0.1:9000/business/admin/chapter/list",
-                    {page:1,size:1}
-                ).then((response)=>{
+                    {
+                        page:page,
+                        size:_this.$refs.pagination.size,
+                    }).then((response)=>{
                     console.log("查询大章的结果",response)
-                    _this.chapters=response.data.list;
+                    _this.chapters = response.data.list;
+                    _this.$refs.pagination.render(page, response.data.total);
                 })
             }
         }
