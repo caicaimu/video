@@ -2,6 +2,7 @@ package com.liu.business.controller.admin;
 
 import com.liu.server.dto.ChapterDto;
 import com.liu.server.dto.PageDto;
+import com.liu.server.dto.ResponseDto;
 import com.liu.server.service.ChapterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,15 +24,20 @@ public class ChapterController {
 	private ChapterService chapterService;
 
 	@RequestMapping("/list")
-	public PageDto list(@RequestBody PageDto pageDto) {
+	public ResponseDto list(@RequestBody PageDto pageDto) {
+
+		ResponseDto responseDto = new ResponseDto<>();
 		chapterService.list(pageDto);
-		return pageDto;
+		responseDto.setContent(pageDto);
+		return responseDto;
 	}
 
 	@RequestMapping("/save")
-	public ChapterDto  save (@RequestBody  ChapterDto chapterDto){
+	public ResponseDto  save (@RequestBody  ChapterDto chapterDto){
+		ResponseDto responseDto = new ResponseDto<>();
 		LOG.info("ChapterDto:{}", chapterDto);
 		chapterService.save(chapterDto);
-		return chapterDto;
+		responseDto.setContent(chapterDto);
+		return responseDto;
 	}
 }

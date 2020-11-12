@@ -153,9 +153,7 @@
              * 列表查询
              */
             list(page){
-
                 let _this =this;
-
                 _this.$ajax.post(
                     "http://127.0.0.1:9000/business/admin/chapter/list",
                     {
@@ -163,8 +161,9 @@
                         size:_this.$refs.pagination.size,
                     }).then((response)=>{
                     console.log("查询大章的结果",response)
-                    _this.chapters = response.data.list;
-                    _this.$refs.pagination.render(page, response.data.total);
+                    let resp=response.data;
+                    _this.chapters = resp.content.list;
+                    _this.$refs.pagination.render(page, resp.content.total);
                 })
             },
 
@@ -172,11 +171,15 @@
              * 保存
              */
             save(page){
-
                 let _this =this;
                 _this.$ajax.post(
                     "http://127.0.0.1:9000/business/admin/chapter/save", _this.chapter).then((response)=>{
-                    console.log("查询大章的结果",response)
+                    console.log("查询大章的结果",response);
+                    let resp=response.data;
+                    if (resp.success){
+                        $("#form-modal").modal("hide");
+                        _this.list(1);
+                    }
                 })
             },
         }
