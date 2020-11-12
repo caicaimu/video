@@ -3,6 +3,8 @@ package com.liu.business.controller.admin;
 import com.liu.server.dto.ChapterDto;
 import com.liu.server.dto.PageDto;
 import com.liu.server.service.ChapterService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,8 @@ import java.util.List;
 @RequestMapping("/admin/chapter")
 public class ChapterController {
 
+
+	private static final Logger LOG = LoggerFactory.getLogger(ChapterController.class);
 	@Resource
 	private ChapterService chapterService;
 
@@ -22,5 +26,12 @@ public class ChapterController {
 	public PageDto list(@RequestBody PageDto pageDto) {
 		chapterService.list(pageDto);
 		return pageDto;
+	}
+
+	@RequestMapping("/save")
+	public ChapterDto  save (@RequestBody  ChapterDto chapterDto){
+		LOG.info("ChapterDto:{}", chapterDto);
+		chapterService.save(chapterDto);
+		return chapterDto;
 	}
 }

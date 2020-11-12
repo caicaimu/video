@@ -6,6 +6,7 @@ import com.liu.server.dto.ChapterDto;
 import com.liu.server.dto.PageDto;
 import com.liu.server.mapper.ChapterMapper;
 import com.liu.server.pojo.Chapter;
+import com.liu.server.util.UuidUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,14 @@ public class ChapterService {
             chapterDtoList.add(chapterDto);
         }
         pageDto.setList(chapterDtoList);
+    }
+
+    public void  save(ChapterDto chapterDto){
+        chapterDto.setId(UuidUtil.getShortUuid());
+        System.out.println(chapterDto);
+        //传进来的参数进行转换
+        Chapter chapter = new Chapter();
+        BeanUtils.copyProperties(chapterDto,chapter);
+        chapterMapper.insert(chapter);
     }
 }
