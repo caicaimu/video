@@ -94,8 +94,7 @@
         mounted:function () {
             let _this=this;
             _this.$refs.pagination.size=5;
-            _this.list();
-            //this.$parent.activeSidebar("business-chapter-sidebar");
+            _this.list(1);
         },
         methods:{
             /**
@@ -112,29 +111,26 @@
              * */
             edit(chapter){
                 let _this= this;
-                _this.chapter=$.extend({},chapter)
-                ;
+                _this.chapter=$.extend({},chapter);
                 $("#form-modal").modal("show");
             },
-
 
             /**
              * 列表查询
              */
             list(page){
+                alert("hello")
                 let _this =this;
-                Loading.show();
                 _this.$ajax.post(
                     "http://127.0.0.1:9000/business/admin/chapter/list",
                     {
                         page:page,
-                        size:_this.$refs.pagination.size,
-                    }).then((response)=>{
-                    Loading.hide();
-                    console.log("查询大章的结果",response)
-                    let resp=response.data;
+                        size:_this.$refs.pagination.size
+                    }).then(resp=>{
+                    console.log("查询大章的结果:"+resp);
+               /*     let resp=response.data;
                     _this.chapters = resp.content.list;
-                    _this.$refs.pagination.render(page, resp.content.total);
+                    _this.$refs.pagination.render(page, resp.content.total);*/
                 })
             },
 
@@ -143,23 +139,19 @@
              */
             save(page){
                 let _this =this;
-                // 保存校验
-                if (!Validator.require(_this.chapter.name, "名称")
-                    || !Validator.length(_this.chapter.courseId, "课程ID", 1, 8)) {
-                    return;
-                }
-                _this.chapter.courseId = _this.course.id;
-
                 Loading.show();
                 _this.$ajax.post(
                     "http://127.0.0.1:9000/business/admin/chapter/save", _this.chapter).then((response)=>{
                     console.log("查询大章的结果",response);
-                    let resp=response.data
+                    let resp=response.data;
                     Loading.hide();
+                    //请求返回的结果处理
                     if (resp.success){
                         $("#form-modal").modal("hide");
                         _this.list(1);
                         Toast.success("保存成功");
+                    }else {
+                        Toast.warning(resp.message)
                     }
                 })
             },
