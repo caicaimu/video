@@ -32,11 +32,11 @@
                 <td>{{cha.courseId}}</td>
                 <td>
                     <div class="hidden-sm hidden-xs btn-group">
-                        <button @click="edit(chapter)" class="btn btn-xs btn-info">
+                        <button @click="edit(cha)" class="btn btn-xs btn-info">
                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                         </button>
 
-                        <button class="btn btn-xs btn-danger">
+                        <button  @click="del(cha.id)" class="btn btn-xs btn-danger">
                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         </button>
                     </div>
@@ -115,6 +115,8 @@
                 ;
                 $("#form-modal").modal("show");
             },
+
+
             /**
              * 列表查询
              */
@@ -144,6 +146,20 @@
                     let resp=response.data;
                     if (resp.success){
                         $("#form-modal").modal("hide");
+                        _this.list(1);
+                    }
+                })
+            },
+
+            /**
+             * 删除
+             */
+            del(id){
+                let _this =this;
+                _this.$ajax.delete(
+                    "http://127.0.0.1:9000/business/admin/chapter/delete/"+ id).then((response)=>{
+                    let resp=response.data;
+                    if (resp.success){
                         _this.list(1);
                     }
                 })
